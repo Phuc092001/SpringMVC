@@ -14,7 +14,8 @@ import java.util.Map;
  * @author ACER
  */
 public interface ProductService {
-     List<Product> getProducts(Map<String, String> params);
+    List<Product> getProducts(Map<String, String> params);
     Product getProductById(int id);
     boolean addOrUpdateProduct(Product p);
+    boolean deleteProduct(int id);
 }

@@ -94,5 +94,17 @@ public class ProductRepositoryImpl implements ProductRepository {
         }
     }
 
+    @Override
+    public boolean deleteProduct(int id) {
+        Product p = this.getProductById(id);
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            s.delete(p);
+            return true;
+        } catch (HibernateException ex) {
+            return false;
+        }
+    }
+
 }
 

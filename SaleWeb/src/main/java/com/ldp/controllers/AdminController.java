@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -26,6 +27,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @Autowired
     private ProductService productService;
+    
+    @ModelAttribute
+    public void commonAttributes(Model model) {
+        model.addAttribute("products", this.productService.getProducts(null));
+    }
     
     @RequestMapping("/products")
     public String addProduct(Model model, 
@@ -45,6 +51,12 @@ public class AdminController {
     @GetMapping("/products")
     public String products(Model model) {
         model.addAttribute("product", new Product());
+        return "products";
+    }
+    
+    @GetMapping("/products/{productId}")
+    public String updateProduct(Model model, @PathVariable(value = "productId") int id) {
+        model.addAttribute("products", this.productService.getProductById(id));
         return "products";
     }
     
